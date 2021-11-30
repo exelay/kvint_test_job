@@ -56,7 +56,9 @@ class PizzaOrder:
             self.payment_method = 'card'
 
     def ask_about_order_confirmation(self):
-        self.message = f'Вы хотите {self.pizza_size} пиццу, оплата - {self.payment_method}?'
+        payment_method = 'наличкой' if self.payment_method == 'cash' else 'банковской картой'
+        pizza_size = 'большую' if self.pizza_size == 'big' else 'маленькую'
+        self.message = f'Вы хотите {pizza_size} пиццу, оплата - {payment_method}?'
 
     def acknowledge_order(self):
         self.message = 'Спасибо за заказ! Если хотите заказать снова, начните с команды /start'
