@@ -1,4 +1,5 @@
 from typing import Dict
+from loguru import logger
 
 from core.types import PizzaOrder
 
@@ -12,5 +13,6 @@ def get_or_create_order(user_id: int) -> PizzaOrder:
     if not order:
         order = PizzaOrder()
         orders[user_id] = order
+        logger.debug(f'User {user_id} created order.')
 
     return order

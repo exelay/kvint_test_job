@@ -1,3 +1,5 @@
+from loguru import logger
+
 from telebot import TeleBot
 from telebot.types import Message
 
@@ -18,6 +20,7 @@ def start_message_handler(message: Message) -> None:
     order = get_or_create_order(user_id)
     text = order.message
     bot.send_message(chat_id, text)
+    logger.debug(f'User {user_id} ran the start command.')
 
 
 @bot.message_handler()
@@ -38,6 +41,7 @@ def get_answer(message: Message, order: PizzaOrder) -> str:
     if any(token in message.text.lower() for token in DIALOG_TOKENS['starting_order']):
         order.start_order()
         answer = order.message
+        logger.debug(f'User {message.from_user.id} started order.')
     elif any(token in message.text.lower() for token in DIALOG_TOKENS['big']):
         order.select_big_pizza()
         answer = order.message
@@ -54,10 +58,12 @@ def get_answer(message: Message, order: PizzaOrder) -> str:
         order.confirm_order()
         answer = order.message
         order.clean_order()
+        logger.debug(f'User {message.from_user.id} confirmed order.')
     elif any(token in message.text.lower() for token in DIALOG_TOKENS['decline']):
         order.decline_order()
         answer = order.message
         order.clean_order()
+        logger.debug(f'User {message.from_user.id} declined order.')
     else:
         answer = DEFAULT_ANSWER
 
