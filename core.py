@@ -24,7 +24,7 @@ class PizzaOrder:
          'dest': 'order_confirmed'},
         {'trigger': 'decline_order', 'source': ['cash_payment_selected', 'card_payment_selected'],
          'dest': 'order_declined'},
-        {'trigger': 'clean_order', 'source': ['decline_order', 'confirm_order'], 'dest': 'awaits_order'},
+        {'trigger': 'clean_order', 'source': ['order_confirmed', 'order_declined'], 'dest': 'awaits_order'},
     ]
     starting_message = 'Привет, у меня ты можешь заказать пиццу. Просто напиши: "Хочу пиццу" 😉'
     message = None
@@ -50,7 +50,7 @@ class PizzaOrder:
         self.message = 'Как вы будете платить?'
 
     def select_payment_method(self):
-        if self.state == 'cash_payment_method':
+        if self.state == 'cash_payment_selected':
             self.payment_method = 'cash'
         elif self.state == 'card_payment_selected':
             self.payment_method = 'card'

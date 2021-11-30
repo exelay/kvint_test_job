@@ -66,9 +66,11 @@ def get_answer(message: Message, order: PizzaOrder) -> str:
     elif any(token in message.text.lower() for token in DIALOG_TOKENS['confirm']):
         order.confirm_order()
         answer = order.message
+        order.cleanse_order()
     elif any(token in message.text.lower() for token in DIALOG_TOKENS['decline']):
         order.decline_order()
         answer = order.message
+        order.cleanse_order()
     else:
         answer = DEFAULT_ANSWER
 
