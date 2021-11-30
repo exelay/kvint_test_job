@@ -1,27 +1,14 @@
-from typing import Dict
-
 from telebot import TeleBot
 from telebot.types import Message
 
 from transitions.core import MachineError
 
-from core import PizzaOrder
-from settings import TELEGRAM_BOT_TOKEN, DEFAULT_ANSWER, DIALOG_TOKENS
+from core.types import PizzaOrder
+from core.services import get_or_create_order, orders
+from core.settings import TELEGRAM_BOT_TOKEN, DEFAULT_ANSWER, DIALOG_TOKENS
 
 
 bot = TeleBot(TELEGRAM_BOT_TOKEN)
-
-orders: Dict[int, PizzaOrder] = {}
-
-
-def get_or_create_order(user_id: int) -> PizzaOrder:
-    order = orders.get(user_id)
-
-    if not order:
-        order = PizzaOrder()
-        orders[user_id] = order
-
-    return order
 
 
 @bot.message_handler(commands=['start'])

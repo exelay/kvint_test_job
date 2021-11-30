@@ -1,6 +1,6 @@
 from loguru import logger
 
-from telegram_bot import bot
+from core.telegram_bot import bot
 
 if __name__ == '__main__':
     logger.info('Telegram bot started')
