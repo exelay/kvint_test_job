@@ -38,32 +38,39 @@ def all_messages_handler(message: Message) -> None:
 
 
 def get_answer(message: Message, order: PizzaOrder) -> str:
-    if any(token in message.text.lower() for token in DIALOG_TOKENS['starting_order']):
+    message_text = message.text.lower()
+    user_id = message.from_user.id
+
+    if any(token in message_text for token in DIALOG_TOKENS['starting_order']):
         order.start_order()
         answer = order.message
         logger.debug(f'User {message.from_user.id} started order.')
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['big']):
+    elif any(token in message_text for token in DIALOG_TOKENS['big']):
         order.select_big_pizza()
         answer = order.message
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['small']):
+        logger.debug(f'User {message.from_user.id} selected big pizza.')
+    elif any(token in message_text for token in DIALOG_TOKENS['small']):
         order.select_small_pizza()
         answer = order.message
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['cash']):
+        logger.debug(f'User {message.from_user.id} selected small pizza.')
+    elif any(token in message_text for token in DIALOG_TOKENS['cash']):
         order.select_cash_payment()
         answer = order.message
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['card']):
+        logger.debug(f'User {message.from_user.id} selected cash payment.')
+    elif any(token in message_text for token in DIALOG_TOKENS['card']):
         order.select_card_payment()
         answer = order.message
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['confirm']):
+        logger.debug(f'User {message.from_user.id} selected card payment.')
+    elif any(token in message_text for token in DIALOG_TOKENS['confirm']):
         order.confirm_order()
         answer = order.message
         order.clean_order()
-        logger.debug(f'User {message.from_user.id} confirmed order.')
-    elif any(token in message.text.lower() for token in DIALOG_TOKENS['decline']):
+        logger.debug(f'User {user_id} confirmed order.')
+    elif any(token in message_text for token in DIALOG_TOKENS['decline']):
         order.decline_order()
         answer = order.message
         order.clean_order()
-        logger.debug(f'User {message.from_user.id} declined order.')
+        logger.debug(f'User {user_id} declined order.')
     else:
         answer = DEFAULT_ANSWER
 
