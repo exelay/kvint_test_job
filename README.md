@@ -1,54 +1,54 @@
-# KVINT Test Job
-Тестовое задание на вакансию Junior Python Developer. Алексей Кирпа.
+# Test Job
+A test assignment for the Junior Python Developer job. Aleksey Kirpa.
 
-## Структура
+## Structure
 ```
-├── core                     # Основная директория проекта
-│   ├── user_interfaces      # Интерфейсы взаимодействия с пользователем
-│   │   └── telegram_bot.py  # Обработчики дейсвий пользователя в телеграм боте
-│   ├── services.py          # Бизнес-логика
-│   ├── settings.py          # Настройки проекта
-│   └── types.py             # Используемые типы данных, содержит только класс с обработкой диалога
-├── tests                    # Директория с тестами
+├── core                     # General project directory
+│   ├── user_interfaces      # User interaction interfaces
+│   │   └── telegram_bot.py  # User action handlers in the Telegram bot
+│   ├── services.py          # Business logic
+│   ├── settings.py          # Project Settings
+│   └── types.py             # Data types used, contains only a class with dialog handling
+├── tests                    # Test directory
 │   ├── __init__.py
-│   └── tests.py             # Тесты
-├── env.example              # Переменные окружения 
-├── .gitignore               # Игнорируемые файлы и директории
-├── main.py                  # Файл запуска телеграм бота
-├── README.md                # Инструкция по использованию проекта
-└── requirements.txt         # Зависимости проекта
+│   └── tests.py             # Tests
+├── env.example              # Environment variables 
+├── .gitignore               # Ignored files and directories
+├── main.py                  # Telegram bot launch file
+├── README.md                # Instructions for using the project
+└── requirements.txt         # Project dependencies
 ```
 
-## Установка
-1. Создать виртуальное окружение
+## Installation
+1. Create a virtual environment
 ```shell
 python3 -m venv venv
 ```
-2. Активировать виртуальное окружение
+2. Activate the virtual environment
 ```shell
 source venv/bin/activate
 ```
-3. Установить зависимости
+3. Set the dependencies
 ```shell
 pip install -r requirements.txt
 ```
-4. Скопировать файл с переменными окружения и прописать собственные переменные
+4. Copy the file with environment variables and write your own variables
 ```shell
 cp .env.example .env
 ```
 ```dotenv
 # Telegram Bot Token
-TOKEN=ваш-телеграм-токен
+TOKEN=your-own-telegram-token
 ```
-## Запуск Телеграм-бота
+## Launching a Telegram bot
 ```shell
 python main.py
 ```
-## Запуск тестов
+## Running tests
 ```shell
 coverage run -m unittest
 ```
-## Проверка покрытия тестов
+## Checking test coverage
 ```shell
 coverage report -m
 ```
